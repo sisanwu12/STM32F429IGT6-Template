@@ -17,13 +17,24 @@ set(FPU_FLAGS "-mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 add_compile_definitions(STM32F429xx)
 
 # 指定各模块路径
-set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
-set(BSP_DIR ${PROJECT_ROOT_DIR}/bsp)
-set(USER_DIR ${PROJECT_ROOT_DIR}/user)
-set(LIB_DIR ${PROJECT_ROOT_DIR}/Libraries)
+set(MCU_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../mcu)
+set(BSP_DIR ${MCU_DIR}/bsp)
+set(USER_DIR ${MCU_DIR}/user)
+set(LIB_DIR ${MCU_DIR}/Libraries)
 set(LD_DIR ${LIB_DIR}/ld)
-set(LIBX_DIR ${PROJECT_ROOT_DIR}/libx)
-set(APP_DIR ${PROJECT_ROOT_DIR}/app)
+set(LIBX_DIR ${MCU_DIR}/libx)
+set(APP_DIR ${MCU_DIR}/app)
+
+# RTOS组
+set(CRM_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../crm)
+
+# freeRTOS模块
+set(FREERTOS_DIR ${CRM_DIR}/freeRTOS)
+set(FRTOS_INC_DIR ${FREERTOS_DIR}/include)
+set(FRTOS_PORT_DIR ${FREERTOS_DIR}/portable)
+set(FRTOS_SRC_DIR ${FREERTOS_DIR}/src)
+set(MEMMANG_DIR ${FRTOS_PORT_DIR}/MemMang)
+set(ARM_CM4F_DIR ${FRTOS_PORT_DIR}/GCC/ARM_CM4F)
 
 # 基本编译选项
 set(CMAKE_C_FLAGS "-mcpu=${MCU} -mthumb ${FPU_FLAGS} -O2 -ffunction-sections -fdata-sections -Wall -g")
@@ -39,6 +50,10 @@ include_directories(
     ${LIB_DIR}/CMSIS
     ${LIB_DIR}/HAL_Driver
     ${LIB_DIR}/HAL_Driver/Legacy
+
+    # freeRTOS文件夹
+    ${FRTOS_INC_DIR}
+    ${ARM_CM4F_DIR}
 
     # 个人文件夹
     ${USER_DIR}
@@ -56,6 +71,11 @@ file(GLOB SRC_FILES
     ${LIB_DIR}/CMSIS/*.c
     ${LIB_DIR}/HAL_Driver/*.c
     ${LIB_DIR}/HAL_Driver/Legacy/*.c
+
+    # freeRTOS文件夹
+    ${ARM_CM4F_DIR}/*.c
+    ${MEMMANG_DIR}/*.c
+    ${FRTOS_SRC_DIR}/*.c
 
     # 个人文件夹
     ${USER_DIR}/*.c
