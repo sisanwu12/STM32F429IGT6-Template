@@ -2,7 +2,7 @@
   "configurations": [
     {
       "cwd": "${workspaceRoot}",
-      "executable": "./mcu/build/template.elf",
+      "executable": "./build/template.elf",
       "device": "STM32F429IGT6",
       "name": "Debug with OpenOCD",
       "request": "launch",

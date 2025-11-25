@@ -1,12 +1,16 @@
 /* 引用文件 */
-#include "main.h"
-#include "stm32f4xx_it.h"
+#include "FreeRTOS.h"
+#include "stm32f4xx_hal.h"
+#include "task.h"
 
 int main(void)
 {
-  /* 主逻辑 */
+  HAL_Init();
+
+  vTaskStartScheduler();
 
   while (1)
   {
+    // should never reach here
   }
 }

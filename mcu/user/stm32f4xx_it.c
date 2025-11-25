@@ -19,7 +19,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
-#include "main.h"
+#include "FreeRTOS.h"
+#include "stm32f4xx_hal.h"
+#include "task.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -141,15 +143,15 @@ void UsageFault_Handler(void)
 /**
  * @brief This function handles System service call via SWI instruction.
  */
-void SVC_Handler(void)
-{
-  /* USER CODE BEGIN SVCall_IRQn 0 */
+// void SVC_Handler(void)
+// {
+//   /* USER CODE BEGIN SVCall_IRQn 0 */
 
-  /* USER CODE END SVCall_IRQn 0 */
-  /* USER CODE BEGIN SVCall_IRQn 1 */
+//   /* USER CODE END SVCall_IRQn 0 */
+//   /* USER CODE BEGIN SVCall_IRQn 1 */
 
-  /* USER CODE END SVCall_IRQn 1 */
-}
+//   /* USER CODE END SVCall_IRQn 1 */
+// }
 
 /**
  * @brief This function handles Debug monitor.
@@ -167,19 +169,21 @@ void DebugMon_Handler(void)
 /**
  * @brief This function handles Pendable request for system service.
  */
-void PendSV_Handler(void)
-{
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+// void PendSV_Handler(void)
+// {
+//   /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+//   /* USER CODE END PendSV_IRQn 0 */
+//   /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
-}
+//   /* USER CODE END PendSV_IRQn 1 */
+// }
 
+void xPortSysTickHandler(void); /* 调度 FreeRTOS声明 */
 /**
  * @brief This function handles System tick timer.
  */
+
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
@@ -187,6 +191,8 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
+
+  xPortSysTickHandler(); // 调度 FreeRTOS 任务
 
   /* USER CODE END SysTick_IRQn 1 */
 }

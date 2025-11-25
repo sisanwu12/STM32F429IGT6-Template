@@ -141,7 +141,7 @@
    there is no need to call the 2 first functions listed above, since
    SystemCoreClock variable is updated automatically.
 */
-uint32_t SystemCoreClock = 16000000;
+uint32_t SystemCoreClock = 18000000;
 const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0,
                                    1, 2, 3, 4, 6, 7, 8, 9};
 const uint8_t APBPrescTable[8] = {0, 0, 0, 0, 1, 2, 3, 4};
@@ -172,7 +172,8 @@ static void SystemInit_ExtMemCtl(void);
  * @param  None
  * @retval None
  */
-void SystemInit(void) {
+void SystemInit(void)
+{
 /* FPU settings ------------------------------------------------------------*/
 #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
   SCB->CPACR |=
@@ -228,13 +229,15 @@ void SystemInit(void) {
  * @param  None
  * @retval None
  */
-void SystemCoreClockUpdate(void) {
+void SystemCoreClockUpdate(void)
+{
   uint32_t tmp, pllvco, pllp, pllsource, pllm;
 
   /* Get SYSCLK source -------------------------------------------------------*/
   tmp = RCC->CFGR & RCC_CFGR_SWS;
 
-  switch (tmp) {
+  switch (tmp)
+  {
   case 0x00: /* HSI used as system clock source */
     SystemCoreClock = HSI_VALUE;
     break;
@@ -249,10 +252,13 @@ void SystemCoreClockUpdate(void) {
     pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
     pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
 
-    if (pllsource != 0) {
+    if (pllsource != 0)
+    {
       /* HSE used as PLL clock source */
       pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-    } else {
+    }
+    else
+    {
       /* HSI used as PLL clock source */
       pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
     }
@@ -283,7 +289,8 @@ void SystemCoreClockUpdate(void) {
  * @param  None
  * @retval None
  */
-void SystemInit_ExtMemCtl(void) {
+void SystemInit_ExtMemCtl(void)
+{
   __IO uint32_t tmp = 0x00;
 
   register uint32_t tmpreg = 0, timeout = 0xFFFF;
@@ -382,7 +389,8 @@ void SystemInit_ExtMemCtl(void) {
   /* Clock enable command */
   FMC_Bank5_6->SDCMR = 0x00000011;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -394,7 +402,8 @@ void SystemInit_ExtMemCtl(void) {
   FMC_Bank5_6->SDCMR = 0x00000012;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -402,7 +411,8 @@ void SystemInit_ExtMemCtl(void) {
   FMC_Bank5_6->SDCMR = 0x00000073;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -410,7 +420,8 @@ void SystemInit_ExtMemCtl(void) {
   FMC_Bank5_6->SDCMR = 0x00046014;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -450,7 +461,8 @@ void SystemInit_ExtMemCtl(void) {
  * @param  None
  * @retval None
  */
-void SystemInit_ExtMemCtl(void) {
+void SystemInit_ExtMemCtl(void)
+{
   __IO uint32_t tmp = 0x00;
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) ||    \
     defined(STM32F439xx) || defined(STM32F446xx) || defined(STM32F469xx) ||    \
@@ -592,7 +604,8 @@ void SystemInit_ExtMemCtl(void) {
   /* Clock enable command */
   FMC_Bank5_6->SDCMR = 0x00000011;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -604,7 +617,8 @@ void SystemInit_ExtMemCtl(void) {
   FMC_Bank5_6->SDCMR = 0x00000012;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -616,7 +630,8 @@ void SystemInit_ExtMemCtl(void) {
 #endif /* STM32F446xx */
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -628,7 +643,8 @@ void SystemInit_ExtMemCtl(void) {
 #endif /* STM32F446xx */
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while ((tmpreg != 0) && (timeout-- > 0)) {
+  while ((tmpreg != 0) && (timeout-- > 0))
+  {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   }
 
@@ -743,7 +759,7 @@ void SystemInit_ExtMemCtl(void) {
 
 #endif /* DATA_IN_ExtSRAM */
 #endif /* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx ||          \
-          STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx ||                                                 \
+          STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx ||          \
           STM32F469xx || STM32F479xx || STM32F412Zx || STM32F412Vx  */
   (void)(tmp);
 }
