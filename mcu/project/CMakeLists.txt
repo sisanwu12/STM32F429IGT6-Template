@@ -22,6 +22,8 @@ set(BSP_DIR ${PROJECT_ROOT_DIR}/bsp)
 set(USER_DIR ${PROJECT_ROOT_DIR}/user)
 set(LIB_DIR ${PROJECT_ROOT_DIR}/Libraries)
 set(LD_DIR ${LIB_DIR}/ld)
+set(LIBX_DIR ${PROJECT_ROOT_DIR}/libx)
+set(APP_DIR ${PROJECT_ROOT_DIR}/app)
 
 # 基本编译选项
 set(CMAKE_C_FLAGS "-mcpu=${MCU} -mthumb ${FPU_FLAGS} -O2 -ffunction-sections -fdata-sections -Wall -g")
@@ -38,8 +40,11 @@ include_directories(
     ${LIB_DIR}/HAL_Driver
     ${LIB_DIR}/HAL_Driver/Legacy
 
+    # 个人文件夹
     ${USER_DIR}
     ${BSP_DIR}
+    ${LIBX_DIR}
+    ${APP_DIR}
 )
 
 
@@ -52,8 +57,11 @@ file(GLOB SRC_FILES
     ${LIB_DIR}/HAL_Driver/*.c
     ${LIB_DIR}/HAL_Driver/Legacy/*.c
 
+    # 个人文件夹
     ${USER_DIR}/*.c
     ${BSP_DIR}/*.c
+    ${LIBX_DIR}/*.c
+    ${APP_DIR}/*.c
 )
 
 # 移除其他时钟基准文件
