@@ -2,11 +2,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "CMake Configure",
+            "label": "CMake 配置",
             "type": "shell",
             "command": "cmake",
             "args": [
-                "-DCMAKE_TOOLCHAIN_FILE=${cwd}/project/arm-gnu-none-eabi.cmake",
+                "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/project/arm-gnu-none-eabi.cmake",
                 "-DCMAKE_SYSTEM_NAME=Generic",
                 "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
                 "-GNinja",
@@ -20,12 +20,12 @@
             }
         },
         {
-            "label": "CMake Build",
+            "label": "CMake 构建",
             "type": "shell",
             "command": "cmake",
             "args": [
                 "--build",
-                "${cwd}/build",
+                "${workspaceFolder}/build",
                 "--target",
                 "all"
             ],
@@ -34,38 +34,38 @@
             }
         },
         {
-            "label": "Flash",
+            "label": "烧录",
             "type": "shell",
             "command": "openocd",
             "args": [
-                "-f",
-                "interface/cmsis-dap.cfg",
-                "-f",
-                "target/stm32f4x.cfg",
+                "-f", "interface/cmsis-dap.cfg",
+                "-f", "target/stm32f4x.cfg",
                 "-c",
-                "program ${cwd}/build/template.elf verify reset exit"
+                "program build/template.elf verify reset exit"
             ],
             "options": {
-              "cwd": "${workspaceFolder}"
-            }
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build",
+            "problemMatcher": []
         },
         {
-      "label": "Clean",
+      "label": "清理",
       "type": "shell",
       "windows": {
         "command": "powershell",
         "args": [
           "-Command",
-          "if (Test-Path ${cwd}/build) {Remove-Item ${cwd}/build -Recurse -Force}; if (Test-Path ${cwd}/.cache) {Remove-Item ${cwd}/.cache -Recurse -Force}"
+          "if (Test-Path ${workspaceFolder}/build) {Remove-Item ${workspaceFolder}/build -Recurse -Force}; if (Test-Path ${workspaceFolder}/.cache) {Remove-Item ${workspaceFolder}/.cache -Recurse -Force}"
         ]
       },
       "linux": {
         "command": "bash",
-        "args": ["-c", "rm -rf ${cwd}/build ${cwd}/.cache || true"]
+        "args": ["-c", "rm -rf ${workspaceFolder}/build ${workspaceFolder}/.cache || true"]
       },
       "osx": {
         "command": "bash",
-        "args": ["-c", "rm -rf ${cwd}/build ${cwd}/.cache || true"]
+        "args": ["-c", "rm -rf ${workspaceFolder}/build ${workspaceFolder}/.cache || true"]
       },
       "presentation": {
         "reveal": "always",

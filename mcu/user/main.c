@@ -8,9 +8,4 @@ int main(void)
   HAL_Init();
 
   vTaskStartScheduler();
-
-  while (1)
-  {
-    // should never reach here
-  }
 }
