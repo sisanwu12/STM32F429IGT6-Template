@@ -1,5 +1,5 @@
 # 指定 cmake 最低版本需求
-cmake_minimum_required(VERSION 4.0.2)
+cmake_minimum_required(VERSION 3.31.10)
 # 指定项目名称
 project(template)
 

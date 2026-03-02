@@ -30,9 +30,10 @@ https://www.bilibili.com/video/BV1svm1YYEQR?spm_id_from=333.788.recommend_more_v
    └── tasks.json           // tasks 的配置文件
    ```
 
-   - 通常情况本文件夹不需要参与项目中，实际上本文件夹也不会参与本项目开发与构建。但是其中一些配置有一定的实际用途，所以在本项目中添加了该文件夹。
+   > 通常情况本文件夹不需要参与项目中，实际上本文件夹也不会参与本项目开发与构建。但是其中一些配置有一定的实际用途，所以在本项目中添加了该文件夹。
   
    - settings.json 是 vscode 中关于该 workspace 的配置文件。 vscode 打开一个文件夹后会将该文件夹视为一个 工作空间(workspace)，不同 workspace 共用一个相同的 user settings 的配置，而 workspace 里的 settings.json 中的配置会覆盖公共配置，实现 vscode 的配置隔离。
+
    - tasks.json 是 用来定义该 workspace 中的 tasks 的。tasks 可以将一段指令封装进左下角的一个按钮里。在本工程的开发环境里，所有的编译，烧录都是在终端里输入指令实现的，而 tasks 可以将具体的指令封装为一个个按钮，简化开发过程。
 
 
@@ -59,7 +60,7 @@ https://www.bilibili.com/video/BV1svm1YYEQR?spm_id_from=333.788.recommend_more_v
     └── stm32f4xx_it.h           // 存储中断函数声明
 ```
 
-具体文件说明请见 [文件说明.md](./doc/README/模板搭建教程.md) 文件
+具体文件说明请见 [文件说明.md](./doc/README/文件说明.md) 文件
 
 ## 模板搭建教程
 
@@ -69,7 +70,7 @@ https://www.bilibili.com/video/BV1svm1YYEQR?spm_id_from=333.788.recommend_more_v
 
 ### 一、准备工作
 
-1. 确保在终端中输入：
+1. 确保在本机终端中输入：
 ```bash
 code --version
 cmake --version
@@ -77,26 +78,30 @@ ninja --version
 arm-none-eabi-gcc --version
 arm-none-eabi-gdb --version
 openocd --version
-clang --version
-llvm-config --version
 ```
-均可以成功显示每个版本号信息。如果不行，请移步 [模板搭建教程](#模板搭建教程) 安装对应软件
+均可以成功显示每个版本号信息。如果不行，请移步 [环境搭建教程](./doc/README/环境搭建教程.md) 安装对应软件
 
 2. 确保vscode中已安装如下插件：
 
+- Tasks
 ![tasks商店页截图](./doc/README/image/task商店页截图.png)
 
-1. 删除模板文件夹中的 doc、.git、README.md 等内容并重新建立。
+- Clangd
+![clangd商店页截图](./doc/README/image/clangd商店页截图.png)
 
-### 二、工具介绍
-此时使用 vscode 打开模板文件夹，可以看到 vscode 底栏有如下四个按键：
+- Cortex-Debug
+![Cortex-Debug商店页截图](./doc/README/image/Cortex-Debug商店页截图.png)
+
+
+### 二、模板介绍
+使用 vscode 打开模板文件夹，可以看到 vscode 底栏有如下四个按键：
 
 ![底栏按键截图](./doc/README/image/底栏按键截图.png)
 
 - **CMake Configure:** 调用 Cmake 生成项目构建目录.
 - **Cmake Build:** 通过 CMake 调用底层的构建工具（本模板使用 Ninja ）去编译、汇编、链接出目标文件和固件。
 - **Flash:** 使用用 OpenOCD 工具把编译好的 .elf 固件烧录到开发板的 Flash 中，然后校验、复位并退出。
-- **Clean:** 清除指令,删除 build 与 .cache 文件夹。当 CMake Configure 或 Cmake Build 没有通过时，请务必使用此按键清除构建目录！！！
+- **Clean:** 清除指令,删除 build 与 .cache 文件夹。`当 CMake Configure 或 Cmake Build 没有通过时，请务必使用此按键清除构建目录！！！`
 
 ### 三、使用流程
 
@@ -106,7 +111,7 @@ llvm-config --version
    ![Configure成功退出截图](./doc/README/image/Configure成功退出截图.png)
 
    同时 mcu 文件夹中出现一个新文件夹 build。
-   >:waring: 注意：失败的构建也会产生一个 build 文件夹，请从终端信息里判断是否构建成功！！！
+   >:warning: 注意：失败的构建也会产生一个 build 文件夹，请从终端信息里判断是否构建成功！！！
 
 2. 点击 **CMake Build** 按钮。  
    一切正常的情况下，vscode的终端会显示如下内容：

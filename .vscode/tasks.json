@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "CMake 配置",
+            "label": "CMake Configure",
             "type": "shell",
             "command": "cmake",
             "args": [
@@ -20,7 +20,7 @@
             }
         },
         {
-            "label": "CMake 构建",
+            "label": "Cmake Build",
             "type": "shell",
             "command": "cmake",
             "args": [
@@ -34,7 +34,7 @@
             }
         },
         {
-            "label": "烧录",
+            "label": "Flash",
             "type": "shell",
             "command": "openocd",
             "args": [
@@ -50,7 +50,7 @@
             "problemMatcher": []
         },
         {
-      "label": "清理",
+      "label": "Clean",
       "type": "shell",
       "windows": {
         "command": "powershell",
