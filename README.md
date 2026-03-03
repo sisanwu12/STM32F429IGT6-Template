@@ -71,7 +71,7 @@ https://www.bilibili.com/video/BV1svm1YYEQR?spm_id_from=333.788.recommend_more_v
 ### 一、准备工作
 
 1. 确保在本机终端中输入：
-```bash
+```shell
 code --version
 cmake --version
 ninja --version
