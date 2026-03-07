@@ -46,7 +46,6 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "dependsOn": "Build",
             "problemMatcher": []
         },
         {
